@@ -1,6 +1,0 @@
-flutter_native_splash:
-  color: "#ffffff" # Cor de fundo
-  image: image/sack.png # Imagem que você quer mostrar
-  android: true
-  ios: true
-  web: true
