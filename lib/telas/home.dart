@@ -18,7 +18,7 @@ class _TelaHomeState extends State<TelaHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Minhas Compras 🛒'),
+        title: Text('Minhas Compras (${compras.length}) 🛒'),
         actions: [
           IconButton(
             icon: Icon(Icons.info_outline),

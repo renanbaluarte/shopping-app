@@ -10,7 +10,7 @@ class AppListaCompras extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lista de Compras 🛍️',
+      title: 'Lista do Mercado ☝️ 🤓️ ️',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.teal,
