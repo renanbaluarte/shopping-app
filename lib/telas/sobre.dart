@@ -9,7 +9,7 @@ class TelaSobre extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Text(
-            'Este app foi criado pelo Renan Dias Ferreira\n\n'
+            'Este app foi criado pelo Renan Dias Ferreira 🦊\n\n'
                 'UNIFESO - 06003250',
             style: TextStyle(fontSize: 18),
             textAlign: TextAlign.center,
