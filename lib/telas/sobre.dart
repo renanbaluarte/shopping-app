@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyperlink/hyperlink.dart';
 
 class TelaSobre extends StatelessWidget {
   @override
@@ -8,12 +9,18 @@ class TelaSobre extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: Text(
-            'Este app foi criado pelo Renan Dias Ferreira 🦊\n\n'
-                'UNIFESO - 06003250',
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
+          child:
+          HyperLink
+            (
+            textStyle: TextStyle(color: Colors.black, fontSize: 15),
+            linkStyle: TextStyle(
+                color: Colors.orange, fontWeight: FontWeight.w700, fontSize: 15),
+            text:
+            'Esse aplicativo foi desenvolvido por [Renan Ferreira](https://github.com/renanbaluarte/shopping-app)🦊 ',
+            linkCallBack: (link) {
+//the clicked link
+            },
+          )
         ),
       ),
     );
