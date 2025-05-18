@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
+// Importa o mapa de ícones
+import 'package:app_lista/icones.dart';
 
 class TelaHome extends StatefulWidget {
   @override
@@ -8,10 +13,51 @@ class TelaHome extends StatefulWidget {
 class _TelaHomeState extends State<TelaHome> {
   List<String> compras = [];
 
+  @override
+  void initState() {
+    super.initState();
+    carregarListaSalva();
+  }
+
+  Future<void> carregarListaSalva() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString('lista_compras');
+    if (jsonString != null) {
+      final List<dynamic> lista = json.decode(jsonString);
+      setState(() {
+        compras = List<String>.from(lista);
+      });
+    }
+  }
+
+  Future<void> salvarLista() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = json.encode(compras);
+    await prefs.setString('lista_compras', jsonString);
+  }
+
   void remover(int index) {
     setState(() {
       compras.removeAt(index);
     });
+    salvarLista();
+  }
+
+  void adicionar(String item) {
+    setState(() {
+      compras.add(item);
+    });
+    salvarLista();
+  }
+
+  IconData buscarIcone(String nomeItem) {
+    final nome = nomeItem.toLowerCase();
+    for (var palavra in iconesPorPalavra.keys) {
+      if (nome.contains(palavra)) {
+        return iconesPorPalavra[palavra]!;
+      }
+    }
+    return Icons.shopping_basket; // ícone padrão
   }
 
   @override
@@ -41,7 +87,7 @@ class _TelaHomeState extends State<TelaHome> {
           return Card(
             child: ListTile(
               title: Text(compras[index]),
-              leading: Icon(Icons.shopping_bag_outlined),
+              leading: Icon(buscarIcone(compras[index])),
               trailing: IconButton(
                 icon: Icon(Icons.delete, color: Colors.redAccent),
                 onPressed: () => remover(index),
@@ -54,9 +100,7 @@ class _TelaHomeState extends State<TelaHome> {
         onPressed: () async {
           final novo = await Navigator.pushNamed(context, '/adicionar');
           if (novo != null && novo is String) {
-            setState(() {
-              compras.add(novo);
-            });
+            adicionar(novo);
           }
         },
         child: Icon(Icons.add),
